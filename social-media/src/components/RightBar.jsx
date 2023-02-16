@@ -1,10 +1,11 @@
 import React from 'react'
+import { Box, Text, Input, Image, Container } from '@chakra-ui/react'
 
 const RightBar = () => {
   return (
-    <div>
+    <Box flex="3">
       Rightbar
-    </div>
+    </Box>
   )
 }
 

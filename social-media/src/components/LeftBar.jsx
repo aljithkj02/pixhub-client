@@ -1,10 +1,67 @@
 import React from 'react'
+import { Box, Text, Input, Image, Container } from '@chakra-ui/react'
+import Friends from '../assets/1.png';
+import Groups from '../assets/2.png';
+import Market from '../assets/3.png';
+import Watch from '../assets/4.png';
+import Memories from '../assets/5.png';
+import Events from '../assets/6.png';
+import Gaming from '../assets/7.png';
+import Gallery from '../assets/8.png';
+import Videos from '../assets/9.png';
+import Messages from '../assets/10.png';
+import Tutorials from '../assets/11.png';
+import Courses from '../assets/12.png';
+import Fund from '../assets/13.png';
 
-const LeftBar = () => {
+const IndividualBar = ({ img, text }) => {
   return (
-    <div>
-      Left bar
-    </div>
+    <Box display="flex" alignItems="center" gap="10px">
+        <Image src={img} 
+          w="20px" h="20px"
+        />
+        <Text fontSize="15px"> { text }</Text>
+    </Box>
+  )
+}
+
+const LeftBar = () => { 
+  return (
+    <Box flex="2" position="sticky" top="50px" h="110vh" >
+        <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
+           <Box display="flex" alignItems="center" gap="10px">
+                <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
+                  w="20px" h="20px" borderRadius="50%"
+                />
+                <Text fontSize="15px"> Aljith KJ </Text>
+            </Box>
+            <IndividualBar text="Friends" img={ Friends } />
+            <IndividualBar text="Groups" img={ Groups } />
+            <IndividualBar text="MarketPlace" img={ Market } />
+            <IndividualBar text="Watch" img={ Watch } />
+            <IndividualBar text="Memories" img={ Memories } />
+        </Box>
+
+        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor:"lightgrey" }}/>
+
+        <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
+            <Text fontSize="14px"> Your shortcuts </Text>
+            <IndividualBar text="Events" img={ Events } />
+            <IndividualBar text="Gaming" img={ Gaming } />
+            <IndividualBar text="Gallery" img={ Gallery } />
+            <IndividualBar text="Videos" img={ Videos } />
+            <IndividualBar text="Messages" img={ Messages } />
+        </Box>
+
+        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor:"lightgrey" }}/>
+
+        <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
+            <Text fontSize="14px"> Others </Text>
+            <IndividualBar text="Fund" img={ Fund } />
+            <IndividualBar text="TuTutorials" img={Tutorials } />
+            <IndividualBar text="Courses" img={ Courses } />
+        </Box>
+    </Box>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import { Navbar, LeftBar, RightBar } from '../components'
 import { Routes, Route, Outlet } from 'react-router-dom'
 import { Login, Register, Home, Profile } from '../pages'
@@ -9,11 +9,13 @@ const Layout = () => {
     return (
         <div>
             <Navbar />
-            <Box display="flex">
+            <Container maxW="full" display="flex">
                 <LeftBar />
-                <Outlet />
+                <Box flex="6">
+                  <Outlet />
+                </Box>
                 <RightBar />
-            </Box>
+            </Container>
         </div>
     )
 }
