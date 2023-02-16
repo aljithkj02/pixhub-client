@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Input, Image, Container } from '@chakra-ui/react'
+import { Box, Text, Input, Image, Container, useColorMode } from '@chakra-ui/react'
 import Friends from '../assets/1.png';
 import Groups from '../assets/2.png';
 import Market from '../assets/3.png';
@@ -15,6 +15,7 @@ import Courses from '../assets/12.png';
 import Fund from '../assets/13.png';
 
 const IndividualBar = ({ img, text }) => {
+  
   return (
     <Box display="flex" alignItems="center" gap="10px">
         <Image src={img} 
@@ -26,12 +27,15 @@ const IndividualBar = ({ img, text }) => {
 }
 
 const LeftBar = () => { 
+  const { colorMode, toggleColorMode } = useColorMode();
+  const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
+
   return (
-    <Box flex="2" position="sticky" top="50px" h="110vh" >
+    <Box flex="2" position="sticky" top="50px" h="110vh" overflow="scroll" >
         <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
            <Box display="flex" alignItems="center" gap="10px">
                 <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
-                  w="20px" h="20px" borderRadius="50%"
+                  w="25px" h="25px" borderRadius="50%"
                 />
                 <Text fontSize="15px"> Aljith KJ </Text>
             </Box>
@@ -42,7 +46,7 @@ const LeftBar = () => {
             <IndividualBar text="Memories" img={ Memories } />
         </Box>
 
-        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor:"lightgrey" }}/>
+        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor: bg }}/>
 
         <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
             <Text fontSize="14px"> Your shortcuts </Text>
@@ -53,12 +57,20 @@ const LeftBar = () => {
             <IndividualBar text="Messages" img={ Messages } />
         </Box>
 
-        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor:"lightgrey" }}/>
+        <hr style={{ margin: '20px 0px 0px', border: 'none', height: '0.5px', backgroundColor: bg }}/>
 
         <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
             <Text fontSize="14px"> Others </Text>
             <IndividualBar text="Fund" img={ Fund } />
             <IndividualBar text="TuTutorials" img={Tutorials } />
+            <IndividualBar text="Courses" img={ Courses } />
+
+            <IndividualBar text="Courses" img={ Courses } />
+            <IndividualBar text="Courses" img={ Courses } />
+            <IndividualBar text="Courses" img={ Courses } />
+            <IndividualBar text="Courses" img={ Courses } />
+            <IndividualBar text="Courses" img={ Courses } />
+            <IndividualBar text="Courses" img={ Courses } />
             <IndividualBar text="Courses" img={ Courses } />
         </Box>
     </Box>

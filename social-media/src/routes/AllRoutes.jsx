@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Container } from '@chakra-ui/react'
+import { ColorModeScript } from '@chakra-ui/color-mode'
 import { Navbar, LeftBar, RightBar } from '../components'
 import { Routes, Route, Outlet } from 'react-router-dom'
 import { Login, Register, Home, Profile } from '../pages'
@@ -9,7 +10,7 @@ const Layout = () => {
     return (
         <div>
             <Navbar />
-            <Container maxW="full" display="flex">
+            <Container maxW="full" display="flex" >
                 <LeftBar />
                 <Box flex="6">
                   <Outlet />

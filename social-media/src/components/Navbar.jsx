@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Input, Image } from '@chakra-ui/react'
+import { Box, Text, Input, Image, useColorMode } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -11,16 +11,24 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const Navbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const bg = (colorMode === 'light') ? "white" : "black";
+  const border = (colorMode === 'light') ? "1px solid lightGrey" : "1px solid #444";
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" p="10px 20px" h="50px"
-      borderBottom="1px solid lightGrey" position="sticky" top="0" bgColor="white"
+      borderBottom={border} position="sticky" top="0" zIndex={2} bgColor={ bg }
     >
       <Box display="flex" alignItems="center" gap="30px">
-        <Link to="/" style={{ fontWeight: 'bold', fontSize: '20px', color: 'darkblue'}}>
+        <Link to="/" style={{ fontWeight: 'bold', fontSize: '20px', color: (colorMode === 'light') ?'darkblue' : 'white' }}>
             Lama Social
         </Link>
         <HomeOutlinedIcon />
-        <DarkModeOutlinedIcon />
+
+        {
+          (colorMode === 'light') ? <DarkModeOutlinedIcon onClick={ toggleColorMode } /> :
+          <WbSunnyOutlinedIcon  onClick={ toggleColorMode } />
+        }
+        
         <GridViewOutlinedIcon />
         <Box display="flex" alignItems="center" gap="10px" border="1px solid lightgrey" borderRadius="5px" p="5px">
           <SearchOutlinedIcon />
