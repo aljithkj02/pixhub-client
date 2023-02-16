@@ -48,15 +48,19 @@ const RightBar = () => {
   const bg = (colorMode === 'light') ? "white" : "#333";
 
   return (
-    <Box flex="3" position="sticky" top="50px" h="110vh" overflow="scroll" pl="20px" bgColor={ bg }>
-        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px">
+    <Box flex="3" position="sticky" top="60px" h="110vh" overflow="scroll" bgColor={ bg }>
+        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px" 
+          bgColor={ colorMode === 'light' ? "white" : "#222"}
+        >
             <Text color={colorMode == 'light'? "#555": "lightgray"}>Suggestions for you</Text>
             
             <User mode="SUGGESTION" name="Jithu" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
             <User mode="SUGGESTION" name="Neymar" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
         </Box>
 
-        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px">
+        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px"
+          bgColor={ colorMode === 'light' ? "white" : "#222"}
+        >
             <Text color={colorMode == 'light'? "#555": "lightgray"}>Latest activities</Text>
             
             <User colorMode={ colorMode } message="Changed their cover picture" mode="ACTIVITIES" name="Jithu" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
@@ -66,15 +70,14 @@ const RightBar = () => {
             
         </Box>
 
-        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px">
+        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px"
+          bgColor={ colorMode === 'light' ? "white" : "#222"}
+        >
             <Text color={colorMode == 'light'? "#555": "lightgray"}>Online friends</Text>
             
             <User mode="ONLINE" name="Neymar" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
             <User mode="ONLINE" name="Messi" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
             <User mode="ONLINE" name="Jithu" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
-            <User mode="ONLINE" name="Ronaldo" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
-            <User mode="ONLINE" name="Ronaldo" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
-            <User mode="ONLINE" name="Ronaldo" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
             <User mode="ONLINE" name="Ronaldo" img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" />
 
         </Box>

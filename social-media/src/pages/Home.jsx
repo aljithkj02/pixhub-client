@@ -1,93 +1,15 @@
 import React from 'react'
-import {  Button, useColorMode } from '@chakra-ui/react'
+import {  Button, useColorMode, Box } from '@chakra-ui/react'
+import { Stories, Posts } from '../components'
 
 const Home = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const bg = (colorMode === 'light') ? "white" : "#333";
+  const bg = (colorMode === 'light') ? "#f6f3f3" : "#333";
   return (
-    <div style={{ backgroundColor: bg}}>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-      <h1>home</h1>
-    </div>
+    <Box bgColor={ bg } p="20px 50px">
+      <Stories />
+      <Posts />
+    </Box>
   )
 }
 

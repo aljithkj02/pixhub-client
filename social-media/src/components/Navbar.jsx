@@ -15,7 +15,7 @@ const Navbar = () => {
   const bg = (colorMode === 'light') ? "white" : "black";
   const border = (colorMode === 'light') ? "1px solid lightGrey" : "1px solid #444";
   return (
-    <Box display="flex" alignItems="center" justifyContent="space-between" p="10px 20px" h="50px"
+    <Box display="flex" alignItems="center" justifyContent="space-between" p="10px 20px" h="60px"
       borderBottom={border} position="sticky" top="0" zIndex={2} bgColor={ bg }
     >
       <Box display="flex" alignItems="center" gap="30px">
@@ -30,9 +30,9 @@ const Navbar = () => {
         }
         
         <GridViewOutlinedIcon />
-        <Box display="flex" alignItems="center" gap="10px" border="1px solid lightgrey" borderRadius="5px" p="5px">
+        <Box display="flex" alignItems="center" gap="10px" border={ border } borderRadius="5px" p="5px">
           <SearchOutlinedIcon />
-          <Input type="text" placeholder="Search..." border="none" w="500px" size="xs" />
+          <Input type="text" placeholder="Search..." border="none" outline="none" w="500px" size="xs" />
         </Box>
       </Box>
 

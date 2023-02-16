@@ -31,7 +31,7 @@ const LeftBar = () => {
   const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
 
   return (
-    <Box flex="2" position="sticky" top="50px" h="110vh" overflow="scroll" >
+    <Box flex="2" position="sticky" top="60px" h="110vh" overflow="scroll" bgColor={ colorMode === 'light' ? "white" : "#222"} >
         <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
            <Box display="flex" alignItems="center" gap="10px">
                 <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
@@ -63,14 +63,6 @@ const LeftBar = () => {
             <Text fontSize="14px"> Others </Text>
             <IndividualBar text="Fund" img={ Fund } />
             <IndividualBar text="TuTutorials" img={Tutorials } />
-            <IndividualBar text="Courses" img={ Courses } />
-
-            <IndividualBar text="Courses" img={ Courses } />
-            <IndividualBar text="Courses" img={ Courses } />
-            <IndividualBar text="Courses" img={ Courses } />
-            <IndividualBar text="Courses" img={ Courses } />
-            <IndividualBar text="Courses" img={ Courses } />
-            <IndividualBar text="Courses" img={ Courses } />
             <IndividualBar text="Courses" img={ Courses } />
         </Box>
     </Box>
