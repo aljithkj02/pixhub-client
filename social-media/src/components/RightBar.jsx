@@ -45,11 +45,11 @@ const User = ({ mode, img, name, message, colorMode }) => {
 
 const RightBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const bg = (colorMode === 'light') ? "white" : "#333";
+  const bg = (colorMode === 'light') ? "#f6f3f3" : "#333";
 
   return (
-    <Box flex="3" position="sticky" top="60px" h="110vh" overflow="scroll" bgColor={ bg }>
-        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px" 
+    <Box pl="15px" flex="3" display={["none", "none", "none", "block"]} position="sticky" top="60px" h="110vh" overflow="scroll" bgColor={ bg }>
+        <Box boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" p="25px" mb="20px"
           bgColor={ colorMode === 'light' ? "white" : "#222"}
         >
             <Text color={colorMode == 'light'? "#555": "lightgray"}>Suggestions for you</Text>

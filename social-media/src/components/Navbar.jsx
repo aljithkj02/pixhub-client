@@ -32,16 +32,17 @@ const Navbar = () => {
         <GridViewOutlinedIcon />
         <Box display="flex" alignItems="center" gap="10px" border={ border } borderRadius="5px" p="5px">
           <SearchOutlinedIcon />
-          <Input type="text" placeholder="Search..." border="none" outline="none" w="500px" size="xs" />
+          <Input display={["none", "none", "block"]} type="text" placeholder="Search..." border="none" 
+          outline="none" w="500px" size="xs"  w={{ base: '200px'}} />
         </Box>
       </Box>
 
-      <Box display="flex" gap="20px" alignItems="center" objectFit="cover">
+      <Box display={["none", "none", "flex"]} gap="20px" alignItems="center" objectFit="cover">
         <PersonOutlineOutlinedIcon />
         <EmailOutlinedIcon />
         <NotificationsNoneOutlinedIcon />
         
-        <Box display="flex" alignItems="center" gap="10px">
+        <Box display={["none", "none", "none", "flex"]} alignItems="center" gap="10px">
           <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" 
             w="30px" h="30px" borderRadius="50%"
           />

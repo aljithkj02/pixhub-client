@@ -31,8 +31,10 @@ const LeftBar = () => {
   const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
 
   return (
-    <Box flex="2" position="sticky" top="60px" h="110vh" overflow="scroll" bgColor={ colorMode === 'light' ? "white" : "#222"} >
-        <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
+    <Box flex="2" display={["none", "none", "block"]} position="sticky" top="60px" h="110vh" 
+      overflow="scroll" bgColor={ colorMode === 'light' ? "white" : "#222"} 
+    >
+        <Box pt="20px" pl={["10px", "0px"]} display="flex" flexDir="column" gap="20px">
            <Box display="flex" alignItems="center" gap="10px">
                 <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
                   w="25px" h="25px" borderRadius="50%"

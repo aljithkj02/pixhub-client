@@ -26,26 +26,34 @@ let story = [
 
 const IndividualStory = ({ img, name, user }) => {
     if(user) return (
-        <Box flex="1" borderRadius="10px" overflow="hidden" position="relative">
+        <Box flex={["none", "1"]}  w={{ base: "50px"}} borderRadius={["50%", "10px"]} overflow="hidden" 
+            position="relative" h="full"
+        >
             <Image h="full" w="full" src={ img } objectFit="cover" />
-            <Text color="white" position="absolute" bottom="10px" left="10px" fontWeight="400" >{ name } </Text>
-            <Button position="absolute" bottom="35px" left="10px" color="white" fontSize="20px"
+            <Text  color="white" position="absolute" bottom="10px" left="10px" fontWeight="400" 
+                display={["none", "block"]}
+            >{ name } </Text>
+            <Button position="absolute" bottom={["10px","35px"]} left="10px" color="white" fontSize="20px"
                 bgColor="#5271ff" border="none" borderRadius="50%" size="xs"
                 display="flex" justifyContent="center" alignItems="center" w="30px" h="30px"
             >+</Button>
         </Box>
     )
     return (
-        <Box flex="1" borderRadius="10px" overflow="hidden" position="relative">
+        <Box flex={["none", "1"]}  borderRadius={["50%", "10px"]} overflow="hidden" position="relative"
+             h="full" w={{ base: "50px"}}
+        >
             <Image h="full" w="full" src={ img } objectFit="cover" />
-            <Text color="white" position="absolute" bottom="10px" left="10px" fontWeight="400" >{ name } </Text>
+            <Text color="white" position="absolute" bottom="10px" left="10px" fontWeight="400" 
+                display={["none", "block"]}
+            >{ name } </Text>
         </Box>
     )
 }
 
 const Stories = () => {
   return (
-    <Box display="flex" gap="10px" height="200px" mb="30px">
+    <Box display="flex" gap="10px" height={["50px", "120px", "120px", "200px"]} mb="30px" >
         <IndividualStory user={true} img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" name="Jithu" />
       {
         story.map((story, i) => {
