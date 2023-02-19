@@ -6,6 +6,7 @@ import IndividualPost from './IndividualPost'
 import Posts from './Posts'
 import Comment from './Comment'
 import AddPost from './AddPost'
+import Update from './Update'
 
 export {
     LeftBar,
@@ -15,5 +16,6 @@ export {
     IndividualPost,
     Posts,
     Comment,
-    AddPost
+    AddPost,
+    Update
 }

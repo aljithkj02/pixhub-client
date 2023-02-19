@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Text, Input, Image, useColorMode, Button } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from 'react-query'
+import { useSelector } from 'react-redux'
 import axios from 'axios';
 import config from '../config'
 
@@ -10,6 +11,7 @@ const AddPost = () => {
     const [file, setFile] = useState(null);
     const [desc, setDesc] = useState(null);
     
+    const { name } = useSelector(data => data);
     const queryClient = useQueryClient()
 
     const mutation = useMutation(async (newPost) => {
@@ -22,13 +24,11 @@ const AddPost = () => {
         console.log(res);
     }, {
         onSuccess: () => {
-          // Invalidate and refetch
           queryClient.invalidateQueries('posts')
         },
     })
 
     const share = () => {
-        // console.log(file, desc)
         storeImageAndPost();
     }
 
@@ -44,10 +44,10 @@ const AddPost = () => {
         const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${config.CLOUD_NAME}/auto/upload`, data, {
           headers: { "Content-Type": "multipart/form-data" },
           onUploadProgress: function (e) {
-            console.log(e.loaded / e.total)
+            // console.log(e.loaded / e.total)
           }
         })
-        console.log(cloudinaryResponse.data)
+        // console.log(cloudinaryResponse.data)
       
         // send the image info back to our server
         const photoData = {
@@ -65,7 +65,7 @@ const AddPost = () => {
             <Box display="flex" gap="30px" alignItems="center">
                 <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?aut%E2%80%A6"
                 h="40px" w="40px" borderRadius="50%" objectFit="cover" />
-                <Text fontSize="15px">What's on your mind Aljith?</Text>
+                <Text fontSize="15px">What's on your mind {name}?</Text>
             </Box>
 
             <Box m="10px 0">
@@ -77,9 +77,11 @@ const AddPost = () => {
                     onChange={(e) => setFile(e.target.files[0])} 
                 />
                 <label htmlFor="file">
-                    <Box>
-                        <Image src="https://github.com/safak/youtube2022/blob/social-app/client/src/assets/img.png?raw=true" />
-                        <Text>Add image</Text>
+                    <Box display="flex" alignItems="center" gap="10px">
+                        <Image src="https://github.com/safak/youtube2022/blob/social-app/client/src/assets/img.png?raw=true" 
+                            w="30px"
+                        />
+                        <Text fontSize="14px">Add image</Text>
                     </Box>
                 </label>
                 <Button onClick={ share } colorScheme='blue' size="sm">Share</Button>

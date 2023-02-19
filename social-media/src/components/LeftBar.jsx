@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Text, Input, Image, Container, useColorMode } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 import Friends from '../assets/1.png';
 import Groups from '../assets/2.png';
 import Market from '../assets/3.png';
@@ -29,6 +30,7 @@ const IndividualBar = ({ img, text }) => {
 const LeftBar = () => { 
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
+  const { name } = useSelector(data => data);
 
   return (
     <Box flex="2" display={["none", "none", "block"]} position="sticky" top="60px" h="110vh" 
@@ -39,7 +41,7 @@ const LeftBar = () => {
                 <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
                   w="25px" h="25px" borderRadius="50%"
                 />
-                <Text fontSize="15px"> Aljith KJ </Text>
+                <Text fontSize="15px"> { name } </Text>
             </Box>
             <IndividualBar text="Friends" img={ Friends } />
             <IndividualBar text="Groups" img={ Groups } />

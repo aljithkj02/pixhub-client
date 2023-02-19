@@ -3,6 +3,8 @@ import { Box, Text, Heading, Container, Card, CardHeader, CardBody, CardFooter,
         Button, Input } from '@chakra-ui/react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/auth/action';
 import config from '../config'
 
 const Login = () => {
@@ -11,6 +13,7 @@ const Login = () => {
         password: ''
     })
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const storeDetails = (e) => {
         setDetails({
@@ -19,14 +22,14 @@ const Login = () => {
         })
     } 
 
-    const login = async (e) => {
+    const loginUser = async (e) => {
         e.preventDefault();
         try {
             let res = await axios.post(`${config.API_URL}/api/auth/login`, {...details});
             if(res.data.success) {
-                const token = res.data.token;
+                const { token, id, name } = res.data;
                 localStorage.setItem('token', token);
-                console.log(token);
+                dispatch(login(name, id, token))
                 navigate('/');
             }
         } catch (err) {
@@ -65,7 +68,7 @@ const Login = () => {
                 >
                         <Box p="20px">
                             <Heading size='md' fontSize="30px" color="#555">Login</Heading>
-                            <form onSubmit={ login }>
+                            <form onSubmit={ loginUser }>
                                 <Input name="email" mt="6" type="email" variant='flushed' placeholder="Email" 
                                     onChange={ storeDetails } required={true}
                                 /> 

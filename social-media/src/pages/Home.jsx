@@ -9,7 +9,7 @@ const Home = () => {
     <Box bgColor={ bg } p={["10px 10px", "10px 20px", "20px 50px"]}>
       <Stories />
       <AddPost />
-      <Posts />
+      <Posts id="ALL" />
     </Box>
   )
 }

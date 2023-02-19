@@ -27,18 +27,19 @@ import { IndividualPost } from './'
 // ];
 
 
-  const Posts = () => {
-    const { isLoading, error, data } = useQuery('posts', async () => {
-      const token = localStorage.getItem('token') || '';
-        let res = await axios.get(`${config.API_URL}/api/posts`, {
-          headers: {
-            'authorization': `Bearer ${token}`
-          }
-        });
-        // console.log(res.data.data);
-        return res.data.data;
-    })
+  const Posts = ({ id }) => {
 
+      const { isLoading, error, data } = useQuery('posts', async () => {
+          const token = localStorage.getItem('token') || '';
+          let res = await axios.get(`${config.API_URL}/api/posts/${id}`, {
+            headers: {
+              'authorization': `Bearer ${token}`
+            }
+          });
+          // console.log(res.data.data);
+          return res.data.data;
+      })
+      
   return (
     <Box display="flex" flexDir="column" gap="50px"> 
       { error ? <h1>Something went wrong!</h1>

@@ -28,12 +28,14 @@ const IndividualComment = ({ commentData }) => {
     const { user_img, user_name, comment, createdAt } = commentData;
     return(
         <Box m="30px 0" display="flex" justifyContent="space-between" gap="20px">
-            <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${user_img}.jpg`} w="40px" h="40px" borderRadius="50%" objectFit="cover" />
+            <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${user_img}.jpg`}
+                w="40px" h="40px" borderRadius="50%" objectFit="cover" 
+             />
             <Box display="flex" flexDir="column" gap="3px" flex="5" alignItems="flex-start">
-                <Text  fontWeight="500"> { user_name } </Text>
+                <Text fontSize="14px"  fontWeight="500"> { user_name } </Text>
                 <Text > { comment } </Text>
             </Box>
-            <Text flex="1" alignSelf="center" color="grey" fontSize="14px"> { moment(createdAt).fromNow() } </Text>
+            <Text flex="2" alignSelf="center" color="grey" fontSize="14px"> { moment(createdAt).fromNow() } </Text>
         </Box>
     )
 }
@@ -63,11 +65,13 @@ const IndividualComment = ({ commentData }) => {
                 'authorization': `Bearer ${token}`
             }
         });
-        console.log(res);
+        // console.log(res);
     }, {
         onSuccess: () => {
-          // Invalidate and refetch
-          queryClient.invalidateQueries('comments')
+          Promise.all([
+            queryClient.invalidateQueries("comments"),
+            queryClient.invalidateQueries("posts")
+          ])
         },
     })
 

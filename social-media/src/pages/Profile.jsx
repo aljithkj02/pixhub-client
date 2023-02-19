@@ -1,5 +1,10 @@
 import React from 'react'
-import { Box, Text, Input, Image, useColorMode, Button } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
+import { Box, Text, Input, Image, useColorMode, Button, useDisclosure } from '@chakra-ui/react'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useSelector } from 'react-redux'
+import axios from 'axios';
+import config from '../config'
 import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
 // import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // import InstagramIcon from '@mui/icons-material/Instagram';
@@ -9,17 +14,55 @@ import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
 // import LanguageIcon from '@mui/icons-material/Language'
 // import EmailOutLinedIcon from '@mui/icons-material/EmailOutLined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Posts } from '../components'
+import { Posts, Update } from '../components'
 
 const Profile = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { id } = useParams();
+  const { id : user_id } = useSelector(data => data);
+  const { isLoading, error, data } = useQuery('user', async () => {
+    const token = localStorage.getItem('token') || '';
+      let res = await axios.get(`${config.API_URL}/api/users/find/${id}`, {
+          headers: {
+            'authorization': `Bearer ${token}`
+          }
+      });
+      // console.log(res.data);
+      return res.data.data;
+  })
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const queryClient = useQueryClient()
+
+    const mutation = useMutation(async (user_id) => {
+        const token = localStorage.getItem('token') || '';
+        let res = await axios.get(`${config.API_URL}/api/users/follow/${user_id}`, {
+          headers: {
+            'authorization': `Bearer ${token}`
+          }
+        });
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("user")
+        },
+    })
+
+  const handleFollow = async () => {
+      mutation.mutate(id);
+  }
+
+  const handleUpdate = async () => {
+    
+  }
+
   return (
     <Box bgColor={ colorMode === 'light' ? "#f6f3f3" : "#333"}>
+      { data && <Update isOpen={ isOpen } onOpen={ onOpen } onClose={ onClose } userData={ data }/> }
       <Box w="100%" h={["230px", "300px"]} position="relative">
-        <Image src="https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg?auto=compress&cs=tinysrgb&w=600" 
+        <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.cover_pic}.jpg` }
           w="100%" h="100%" objectFit="cover"
         /> 
-        <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" 
+        <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.profile_pic}.jpg` } 
           w={["150px", "200px"]} h={["150px", "200px"]} borderRadius="50%" objectFit="cover" position="absolute" left="0" right="0" m="auto"
           top={["150px", "200px"]}
         />
@@ -43,12 +86,12 @@ const Profile = () => {
           </Box>
 
           <Box flex="1" display="flex" flexDir="column" alignItems="center" gap="10px">
-            <Text fontSize="30px" fontWeight="500">Jithu</Text>
+            <Text fontSize="30px" fontWeight="500">{ data?.name }</Text>
 
             <Box display="flex" alignItems="center" justifyContent="space-around" w="100%">
               <Box display="flex" alignItems="center" gap="5px" >
                 <FacebookTwoToneIcon />
-                <Text fontSize="14px">USA </Text>
+                <Text fontSize="14px">{ data?.city } </Text>
               </Box>
 
               <Box>
@@ -59,10 +102,21 @@ const Profile = () => {
               </Box>
             </Box>
 
-            <Button size="md" colorScheme="twitter" fontWeight="400" p="10px 20px" fontSize="15px" border="none"
-            > 
-              follow 
-            </Button>
+            {
+              (data?._id === user_id) ? (
+                <Button size="md" colorScheme="twitter" fontWeight="400" p="10px 20px" fontSize="15px" border="none"
+                  onClick= { onOpen }
+                > 
+                  update 
+                </Button>
+              ): (
+                <Button size="md" colorScheme="twitter" fontWeight="400" p="10px 20px" fontSize="15px" border="none"
+                  onClick= { handleFollow }
+                > 
+                    {data?.followers.includes(user_id)? "following" : "follow"}
+                </Button>
+              )
+            }
         
           </Box>
 
@@ -72,7 +126,7 @@ const Profile = () => {
           </Box>
         </Box>
 
-        <Posts />
+        <Posts id={ id } />
       </Box>
 
     </Box>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Text, Input, Image, useColorMode } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
@@ -14,6 +15,8 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "white" : "black";
   const border = (colorMode === 'light') ? "1px solid lightGrey" : "1px solid #444";
+  const { name } = useSelector(data => data);
+
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" p="10px 20px" h="60px"
       borderBottom={border} position="sticky" top="0" zIndex={2} bgColor={ bg }
@@ -46,7 +49,7 @@ const Navbar = () => {
           <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" 
             w="30px" h="30px" borderRadius="50%"
           />
-          <Text fontWeight="500"> Aljith K J</Text>
+          <Text fontWeight="500"> {name}</Text>
         </Box>
       </Box>
     </Box>
