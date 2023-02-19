@@ -5,6 +5,7 @@ import Stories from './Stories'
 import IndividualPost from './IndividualPost'
 import Posts from './Posts'
 import Comment from './Comment'
+import AddPost from './AddPost'
 
 export {
     LeftBar,
@@ -13,5 +14,6 @@ export {
     Stories,
     IndividualPost,
     Posts,
-    Comment
+    Comment,
+    AddPost
 }

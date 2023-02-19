@@ -1,14 +1,18 @@
 import React from 'react'
 import { Box, Container } from '@chakra-ui/react'
-import { ColorModeScript } from '@chakra-ui/color-mode'
+// import { ColorModeScript } from '@chakra-ui/color-mode'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Navbar, LeftBar, RightBar } from '../components'
 import { Routes, Route, Outlet } from 'react-router-dom'
 import { Login, Register, Home, Profile } from '../pages'
 import PrivateRouter from './PrivateRouter'
 
+const queryClient = new QueryClient()
+
 const Layout = () => {
     return (
         <div>
+          <QueryClientProvider client={queryClient}>
             <Navbar />
             <Container maxW="full" display="flex" >
                 <LeftBar />
@@ -17,6 +21,7 @@ const Layout = () => {
                 </Box>
                 <RightBar />
             </Container>
+          </QueryClientProvider>
         </div>
     )
 }

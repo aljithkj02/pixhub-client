@@ -7,7 +7,7 @@ import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
 // import TwitterIcon from '@mui/icons-material/Twitter'
 // import PlaceIcon from '@mui/icons-material/Place'
 // import LanguageIcon from '@mui/icons-material/Language'
-import EmailOutLinedIcon from '@mui/icons-material/EmailOutLined'
+// import EmailOutLinedIcon from '@mui/icons-material/EmailOutLined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Posts } from '../components'
 
@@ -18,7 +18,7 @@ const Profile = () => {
       <Box w="100%" h={["230px", "300px"]} position="relative">
         <Image src="https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg?auto=compress&cs=tinysrgb&w=600" 
           w="100%" h="100%" objectFit="cover"
-        />
+        /> 
         <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" 
           w={["150px", "200px"]} h={["150px", "200px"]} borderRadius="50%" objectFit="cover" position="absolute" left="0" right="0" m="auto"
           top={["150px", "200px"]}
@@ -67,7 +67,7 @@ const Profile = () => {
           </Box>
 
           <Box flex="1" display="flex" alignItems="center" justifyContent="flex-end" gap="10px">
-            <EmailOutLinedIcon />
+            {/* <EmailOutLinedIcon /> */}
             <MoreVertIcon />
           </Box>
         </Box>

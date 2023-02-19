@@ -7,7 +7,7 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+// import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const Navbar = () => {
@@ -33,13 +33,13 @@ const Navbar = () => {
         <Box display="flex" alignItems="center" gap="10px" border={ border } borderRadius="5px" p="5px">
           <SearchOutlinedIcon />
           <Input display={["none", "none", "block"]} type="text" placeholder="Search..." border="none" 
-          outline="none" w="500px" size="xs"  w={{ base: '200px'}} />
+          outline="none"  size="xs"  w={["200px", "500px"]} />
         </Box>
       </Box>
 
       <Box display={["none", "none", "flex"]} gap="20px" alignItems="center" objectFit="cover">
         <PersonOutlineOutlinedIcon />
-        <EmailOutlinedIcon />
+        {/* <EmailOutlinedIcon /> */}
         <NotificationsNoneOutlinedIcon />
         
         <Box display={["none", "none", "none", "flex"]} alignItems="center" gap="10px">
