@@ -5,12 +5,14 @@ import { Box, Text, Input, Image, useColorMode, Button, Modal,
 import { useMutation, useQueryClient } from 'react-query'
 import axios from 'axios';
 import config from '../config'
+import { Loader } from './index' 
 
 const Update = ({ isOpen, onOpen, onClose, userData }) => {
 
     const { name, city, website } = userData;
     const [cover, setCover] = useState(null);
     const [profile, setProfile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [data, setData ] = useState({
         name: name,
         city: city,
@@ -27,6 +29,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
             }
         });
         // console.log(res);
+        setIsLoading(false);
     }, {
         onSuccess: () => {
           queryClient.invalidateQueries('user')
@@ -42,6 +45,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
 
     const updateData = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         storeImageAndUpdate();
         onClose();
     }
@@ -64,7 +68,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
                     // console.log(e.loaded / e.total)
                 }
             })
-            console.log(cloudinaryResponse.data)
+            // console.log(cloudinaryResponse.data)
           
             const photoData = {
                 public_id: cloudinaryResponse.data.public_id,
@@ -101,15 +105,40 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
     }
   return (
     <>
+        {isLoading && <Loader /> }
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Update profile</ModalHeader>
           <ModalCloseButton />
             <form onSubmit={ updateData }>
-                <ModalBody>
-                        <Input type="file" onChange={ (e) => setCover(e.target.files[0]) } />
-                        <Input type="file" onChange={ (e) => setProfile(e.target.files[0]) } />
+                <ModalBody display="flex" flexDir="column" gap="10px">
+                <Box m="10px 0" display="flex" justifyContent="space-between" alignItems="center" mt="20px">
+                    <Input type="file" id="cover" onChange={ (e) => setCover(e.target.files[0]) } display="none" />
+                    <label htmlFor="cover" style={{ cursor: "pointer" }}>
+                        <Box display="flex" alignItems="center" gap="10px">
+                            <Image src="https://github.com/safak/youtube2022/blob/social-app/client/src/assets/img.png?raw=true" 
+                                w="30px"
+                            />
+                            <Text fontSize="14px">Add cover</Text>
+                        </Box>
+                    </label>
+                    <Text>{ cover?.name.substring(0, 20) }</Text>
+                </Box>
+
+                <Box m="10px 0" display="flex" justifyContent="space-between" alignItems="center" mt="20px">
+                    <Input type="file" id="profile" onChange={ (e) => setProfile(e.target.files[0]) } display="none" />
+                    <label htmlFor="profile" style={{ cursor: "pointer" }}>
+                        <Box display="flex" alignItems="center" gap="10px">
+                            <Image src="https://github.com/safak/youtube2022/blob/social-app/client/src/assets/img.png?raw=true" 
+                                w="30px"
+                            />
+                            <Text fontSize="14px">Add profile</Text>
+                        </Box>
+                    </label>
+                    <Text>{ profile?.name.substring(0, 20) }</Text>
+                </Box>
+                        
                         <Input type="text" value={ data.name } name="name" onChange={ handleChange }
                             placeholder="Name"
                         />
@@ -128,7 +157,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
                     <Button type="submit" colorScheme='blue'>Update</Button>
                 </ModalFooter>
             </form>
-        </ModalContent>
+        </ModalContent> 
       </Modal>
     </>
   )

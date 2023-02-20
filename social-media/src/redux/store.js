@@ -1,7 +1,14 @@
-import { legacy_createStore as createStore, applyMiddleware } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk'
 import authReducer from './auth/reducer';
-const store = createStore(authReducer, applyMiddleware(thunk));
+import dataReducer from './data/reducer';
+
+const combinedReducer = combineReducers({
+    auth: authReducer,
+    data: dataReducer
+})
+
+const store = createStore(combinedReducer, applyMiddleware(thunk));
 
 store.subscribe(() => console.log(store.getState()))
 

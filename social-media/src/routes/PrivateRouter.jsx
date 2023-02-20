@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useToast } from '@chakra-ui/react'
 
 const PrivateRouter = ( {children}) => {
-  const { isAuth } = useSelector( data=> data );
+  const { isAuth } = useSelector( data=> data.auth );
   if(isAuth) return children;
 
   const toast = useToast();

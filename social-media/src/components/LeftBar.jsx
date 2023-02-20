@@ -32,7 +32,7 @@ const IndividualBar = ({ img, text }) => {
 const LeftBar = () => { 
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
-  const { name, id, img } = useSelector(data => data);
+  const { name, id, img } = useSelector(data => data.auth);
   const navigate = useNavigate();
 
   return ( 

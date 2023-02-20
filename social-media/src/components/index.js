@@ -7,6 +7,7 @@ import Posts from './Posts'
 import Comment from './Comment'
 import AddPost from './AddPost'
 import Update from './Update'
+import Loader from './Loader'
 
 export {
     LeftBar,
@@ -17,5 +18,6 @@ export {
     Posts,
     Comment,
     AddPost,
-    Update
+    Update,
+    Loader
 }

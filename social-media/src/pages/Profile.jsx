@@ -9,12 +9,12 @@ import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import LanguageIcon from '@mui/icons-material/Language'; 
 import PlaceIcon from '@mui/icons-material/Place'; 
-import { Posts, Update } from '../components'
+import { Posts, Update, Loader } from '../components'
 
 const Profile = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { id } = useParams();
-  const { id : user_id } = useSelector(data => data);
+  const { id : user_id } = useSelector(data => data.auth);
   const { isLoading, error, data } = useQuery('user', async () => {
     const token = localStorage.getItem('token') || '';
       let res = await axios.get(`${config.API_URL}/api/users/find/${id}`, {
@@ -25,7 +25,7 @@ const Profile = () => {
       // console.log(res.data);
       return res.data.data;
   })
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const queryClient = useQueryClient()
 
@@ -49,15 +49,21 @@ const Profile = () => {
   return (
     <Box bgColor={ colorMode === 'light' ? "#f6f3f3" : "#333"} minH="120vh">
       { data && <Update isOpen={ isOpen } onOpen={ onOpen } onClose={ onClose } userData={ data }/> }
-      <Box w="100%" h={["230px", "300px"]} position="relative">
-        <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.cover_pic}.jpg` }
-          w="100%" h="100%" objectFit="cover"
-        /> 
-        <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.profile_pic}.jpg` } 
-          w={["150px", "200px"]} h={["150px", "200px"]} borderRadius="50%" objectFit="cover" position="absolute" left="0" right="0" m="auto"
-          top={["150px", "200px"]}
-        />
-      </Box>
+      { isLoading && <Loader /> }
+
+    {
+      data && (
+            <Box w="100%" h={["230px", "300px"]} position="relative">
+                <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.cover_pic}.jpg` }
+                  w="100%" h="100%" objectFit="cover"
+                  /> 
+                <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.profile_pic}.jpg` } 
+                  w={["150px", "200px"]} h={["150px", "200px"]} borderRadius="50%" objectFit="cover" position="absolute" left="0" right="0" m="auto"
+                  top={["150px", "200px"]}
+                  />
+            </Box>
+          )
+    }
 
       <Box p={["10px 10px", "20px 50px"]} m={["80px 0", "0"]}>  
         <Box  bgColor={ colorMode === 'light' ? "white" : "#222"} h="280px" borderRadius="20px" boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"  
@@ -94,9 +100,9 @@ const Profile = () => {
                 </Link>
               </Box>
 
-              <Box display="flex" alignItems="center" gap="10px" fontSize="16px">
-                <Text fontWeight="500">followers </Text>
-                <Text fontWeight="600"> { data?.followers.length || 0 }</Text>
+              <Box display="flex" alignItems="center" gap="5px" fontSize="16px">
+                <Text fontWeight="500">followers:</Text>
+                <Text fontWeight="600">{ data?.followers.length || 0 }</Text>
               </Box>
 
             </Box>

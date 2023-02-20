@@ -16,7 +16,7 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "white" : "black";
   const border = (colorMode === 'light') ? "1px solid lightGrey" : "1px solid #444";
-  const { name, img, id } = useSelector(data => data);
+  const { name, img, id } = useSelector(data => data.auth);
   const [logoutBox, setLogoutBox] = useState(false);
 
   const navigate = useNavigate();

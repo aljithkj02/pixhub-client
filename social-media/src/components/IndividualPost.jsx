@@ -18,7 +18,7 @@ const IndividualPost = ({ post }) => {
     const [ commentOpen, setCommentOpen ] = useState(false);
     const [ menuOpen, setMenuOpen ] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
-    const { id } = useSelector(data => data);
+    const { id } = useSelector(data => data.auth);
 
     const queryClient = useQueryClient();
 

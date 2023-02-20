@@ -50,7 +50,7 @@ const RightBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "#f6f3f3" : "#333";
   const [data, setData] = useState([]);
-  const { id } = useSelector(data => data );
+  const { id } = useSelector(data => data.auth );
 
   useEffect(() => {
       fetchUsers();
