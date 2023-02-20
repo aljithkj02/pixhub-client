@@ -11,7 +11,7 @@ const AddPost = () => {
     const [file, setFile] = useState(null);
     const [desc, setDesc] = useState(null);
     
-    const { name } = useSelector(data => data);
+    const { name, img } = useSelector(data => data);
     const queryClient = useQueryClient()
 
     const mutation = useMutation(async (newPost) => {
@@ -63,7 +63,7 @@ const AddPost = () => {
     <Box borderRadius="20px" m="20px 0" bgColor={colorMode == 'light' ? "white" : "#222" } boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
         <Box p="20px" >
             <Box display="flex" gap="30px" alignItems="center">
-                <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?aut%E2%80%A6"
+                <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${img}.jpg`}
                 h="40px" w="40px" borderRadius="50%" objectFit="cover" />
                 <Text fontSize="15px">What's on your mind {name}?</Text>
             </Box>

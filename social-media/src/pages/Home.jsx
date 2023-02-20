@@ -6,7 +6,7 @@ const Home = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "#f6f3f3" : "#333";
   return (
-    <Box bgColor={ bg } p={["10px 10px", "10px 20px", "20px 50px"]}>
+    <Box bgColor={ bg } p={["10px 10px", "10px 20px", "20px 50px"]} minH="120vh" >
       <Stories />
       <AddPost />
       <Posts id="ALL" />

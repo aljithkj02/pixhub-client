@@ -1,19 +1,14 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Box, Text, Input, Image, useColorMode, Button, useDisclosure } from '@chakra-ui/react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
 import axios from 'axios';
 import config from '../config'
 import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
-// import LinkedInIcon from '@mui/icons-material/LinkedIn';
-// import InstagramIcon from '@mui/icons-material/Instagram';
-// import PinterestIcon from '@mui/icons-material/Pinterest'
-// import TwitterIcon from '@mui/icons-material/Twitter'
-// import PlaceIcon from '@mui/icons-material/Place'
-// import LanguageIcon from '@mui/icons-material/Language'
-// import EmailOutLinedIcon from '@mui/icons-material/EmailOutLined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import LanguageIcon from '@mui/icons-material/Language'; 
+import PlaceIcon from '@mui/icons-material/Place'; 
 import { Posts, Update } from '../components'
 
 const Profile = () => {
@@ -51,12 +46,8 @@ const Profile = () => {
       mutation.mutate(id);
   }
 
-  const handleUpdate = async () => {
-    
-  }
-
   return (
-    <Box bgColor={ colorMode === 'light' ? "#f6f3f3" : "#333"}>
+    <Box bgColor={ colorMode === 'light' ? "#f6f3f3" : "#333"} minH="120vh">
       { data && <Update isOpen={ isOpen } onOpen={ onOpen } onClose={ onClose } userData={ data }/> }
       <Box w="100%" h={["230px", "300px"]} position="relative">
         <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${data?.cover_pic}.jpg` }
@@ -70,10 +61,10 @@ const Profile = () => {
 
       <Box p={["10px 10px", "20px 50px"]} m={["80px 0", "0"]}>  
         <Box  bgColor={ colorMode === 'light' ? "white" : "#222"} h="280px" borderRadius="20px" boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"  
-          p="20px 50px" display="flex" alignItems="center" justifyContent="space-between" mb="20px"
+          p="20px 50px" display="flex" alignItems="center" justifyContent="center" mb="20px"
           flexDir={["column", "row"]}
         >
-          <Box flex="1" display="flex" gap="10px">
+          {/* <Box flex="1" display="flex" gap="10px">
             <a href="">
               <FacebookTwoToneIcon fontSize="large"/>
             </a>
@@ -83,23 +74,31 @@ const Profile = () => {
             <a href="">
               <FacebookTwoToneIcon fontSize="large" />
             </a>
-          </Box>
+          </Box> */}
 
-          <Box flex="1" display="flex" flexDir="column" alignItems="center" gap="10px">
+          <Box display="flex" flexDir="column" alignItems="center" gap="10px" w="300px">
             <Text fontSize="30px" fontWeight="500">{ data?.name }</Text>
 
             <Box display="flex" alignItems="center" justifyContent="space-around" w="100%">
-              <Box display="flex" alignItems="center" gap="5px" >
-                <FacebookTwoToneIcon />
-                <Text fontSize="14px">{ data?.city } </Text>
+              <Box display="flex" alignItems="center" >
+                <PlaceIcon />
+                <Text fontSize="14px">{ data?.city || 'not added' } </Text>
               </Box>
 
               <Box>
-                <Box display="flex" alignItems="center" gap="5px" >
-                  <FacebookTwoToneIcon />
-                  <Text fontSize="14px">social </Text>
-                </Box>
+                <Link to={ data?.website } target={ data?.website && "_blank"}>
+                  <Box display="flex" alignItems="center" gap="5px" >
+                    <LanguageIcon />
+                    <Text fontSize="14px">social</Text>
+                  </Box>
+                </Link>
               </Box>
+
+              <Box display="flex" alignItems="center" gap="10px" fontSize="16px">
+                <Text fontWeight="500">followers </Text>
+                <Text fontWeight="600"> { data?.followers.length || 0 }</Text>
+              </Box>
+
             </Box>
 
             {
@@ -120,10 +119,10 @@ const Profile = () => {
         
           </Box>
 
-          <Box flex="1" display="flex" alignItems="center" justifyContent="flex-end" gap="10px">
-            {/* <EmailOutLinedIcon /> */}
+          {/* <Box flex="1" display="flex" alignItems="center" justifyContent="flex-end" gap="10px">
+            <EmailOutLinedIcon />
             <MoreVertIcon />
-          </Box>
+          </Box> */}
         </Box>
 
         <Posts id={ id } />

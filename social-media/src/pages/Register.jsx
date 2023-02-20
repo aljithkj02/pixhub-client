@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react' 
 import { Box, Text, Heading, Container, Card, CardHeader, CardBody, CardFooter, 
-        Button, Input } from '@chakra-ui/react'
+        Button, Input, useToast } from '@chakra-ui/react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/auth/action';
 import config from '../config'
 
 const Register = () => {
@@ -12,6 +14,8 @@ const Register = () => {
         password: ''
     })
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const toast = useToast()
 
     const storeDetails = (e) => {
         setDetails({
@@ -25,14 +29,26 @@ const Register = () => {
         try {
             let res = await axios.post(`${config.API_URL}/api/auth/register`, {...details})
             if(res.data.success) {
-                const token = res.data.token;
+                const { token, id, name, img } = res.data;
                 localStorage.setItem('token', token);
-                console.log(token);
+                toast({
+                    title: res.data.message,
+                    position: 'top',
+                    status: 'success',
+                    isClosable: true,
+                })
+                dispatch(login(name, id, token, img))
                 navigate('/');
             }
             console.log(res);
         } catch (err) {
-            console.log(err);
+            console.log(err.response.data.message);
+            toast({
+                title: err.response.data.message,
+                position: 'top',
+                status: 'error',
+                isClosable: true,
+            })
         }
     }
 

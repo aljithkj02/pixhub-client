@@ -16,6 +16,7 @@ import config from '../config'
 const IndividualPost = ({ post }) => {
     const { name, user_img, desc, img, user_id, _id, createdAt, likes, total_comments } = post;
     const [ commentOpen, setCommentOpen ] = useState(false);
+    const [ menuOpen, setMenuOpen ] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
     const { id } = useSelector(data => data);
 
@@ -30,19 +31,35 @@ const IndividualPost = ({ post }) => {
         });
     }, {
         onSuccess: () => {
-          // Invalidate and refetch
           queryClient.invalidateQueries('posts');
         },
     })
 
-    const likePost = async () => {
+    const deleteMutation = useMutation(async (post_id) => {
+        const token = localStorage.getItem('token') || '';
+        let res  = await axios.delete(`${config.API_URL}/api/posts/${post_id}`,{
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        });
+    }, {
+        onSuccess: () => {
+          queryClient.invalidateQueries('posts');
+        },
+    })
+
+    const likePost =  () => {
         mutation.mutate(_id);
+    }
+
+    const handleDelete = async () => {
+        deleteMutation.mutate(_id);
     }
 
   return (
     <Box borderRadius="20px" bgColor={colorMode == 'light' ? "white" : "#222" } boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
         <Box p="20px" >
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box display="flex" justifyContent="space-between" alignItems="center" position="relative">
                 <Box display="flex" alignItems="center" gap="15px"> 
                     <Image src={ `https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${user_img}.jpg`} h="40px" w="40px" borderRadius="50%" objectFit="cover" />
                     <Box>
@@ -52,7 +69,11 @@ const IndividualPost = ({ post }) => {
                         </Link>
                     </Box>
                 </Box>
-                <MoreHorizIcon />
+                <MoreHorizIcon onClick={ ()=> setMenuOpen(!menuOpen)} cursor="pointer" />
+                {menuOpen && user_id === id && 
+                (<Button colorScheme="red" onClick={ handleDelete } size="sm" position="absolute" 
+                    top="40px" right="0"
+                >Delete</Button>)}
             </Box>
 
             <Box m="20px 0">

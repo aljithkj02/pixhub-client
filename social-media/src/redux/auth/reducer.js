@@ -3,12 +3,14 @@
 let token = localStorage.getItem('token') || '';
 let id = localStorage.getItem('id') || '';
 let name = localStorage.getItem('name') || '';
+let img = localStorage.getItem('img') || '';
 let isAuth = (token) ? true : false;
 let defaultData = {
     isAuth,
     name,
     token,
-    id
+    id,
+    img
 }
 
 const authReducer = (state = defaultData, action) => {
@@ -18,7 +20,8 @@ const authReducer = (state = defaultData, action) => {
             isAuth: true,
             name: action.payload.name,
             token: action.payload.token,
-            id: action.payload.id
+            id: action.payload.id,
+            img: action.payload.img
         }
     }else if(action.type === 'LOGOUT'){
         return {
@@ -26,7 +29,8 @@ const authReducer = (state = defaultData, action) => {
             isAuth: false,
             name: '',
             token: '',
-            id: ''
+            id: '',
+            img: ''
         }
     }
     return state;

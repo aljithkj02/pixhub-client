@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box, Text, Input, Image, Container, useColorMode } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import config from '../config'
 import Friends from '../assets/1.png';
 import Groups from '../assets/2.png';
 import Market from '../assets/3.png';
@@ -16,9 +18,9 @@ import Courses from '../assets/12.png';
 import Fund from '../assets/13.png';
 
 const IndividualBar = ({ img, text }) => {
-  
+
   return (
-    <Box display="flex" alignItems="center" gap="10px">
+    <Box display="flex" alignItems="center" gap="10px" cursor="pointer">
         <Image src={img} 
           w="20px" h="20px"
         />
@@ -30,18 +32,20 @@ const IndividualBar = ({ img, text }) => {
 const LeftBar = () => { 
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "lightgrey" : "#454543";
-  const { name } = useSelector(data => data);
+  const { name, id, img } = useSelector(data => data);
+  const navigate = useNavigate();
 
-  return (
+  return ( 
     <Box flex="2" display={["none", "none", "block"]} position="sticky" top="60px" h="110vh" 
       overflow="scroll" bgColor={ colorMode === 'light' ? "white" : "#222"} 
     >
         <Box pt="20px" pl={["10px", "0px"]} display="flex" flexDir="column" gap="20px">
            <Box display="flex" alignItems="center" gap="10px">
-                <Image src='https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600' 
+                <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${img}.jpg`} 
                   w="25px" h="25px" borderRadius="50%"
                 />
-                <Text fontSize="15px"> { name } </Text>
+                <Text fontSize="15px" onClick={ ()=> navigate(`/profile/${id}`)} cursor="pointer"
+                > { name } </Text>
             </Box>
             <IndividualBar text="Friends" img={ Friends } />
             <IndividualBar text="Groups" img={ Groups } />
