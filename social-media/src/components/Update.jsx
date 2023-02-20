@@ -30,6 +30,8 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
         });
         // console.log(res);
         setIsLoading(false);
+        setCover(null);
+        setProfile(null);
     }, {
         onSuccess: () => {
           queryClient.invalidateQueries('user')

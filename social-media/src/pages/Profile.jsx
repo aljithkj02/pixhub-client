@@ -82,7 +82,7 @@ const Profile = () => {
             </a>
           </Box> */}
 
-          <Box display="flex" flexDir="column" alignItems="center" gap="10px" w="300px">
+          <Box display="flex" flexDir="column" alignItems="center" gap="10px" w={["250px", "300px"]}>
             <Text fontSize="30px" fontWeight="500">{ data?.name }</Text>
 
             <Box display="flex" alignItems="center" justifyContent="space-around" w="100%">

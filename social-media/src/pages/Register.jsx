@@ -26,29 +26,38 @@ const Register = () => {
 
     const register = async (e) => {
         e.preventDefault();
-        try {
-            let res = await axios.post(`${config.API_URL}/api/auth/register`, {...details})
-            if(res.data.success) {
-                const { token, id, name, img } = res.data;
-                localStorage.setItem('token', token);
-                toast({
-                    title: res.data.message,
-                    position: 'top',
-                    status: 'success',
-                    isClosable: true,
-                })
-                dispatch(login(name, id, token, img))
-                navigate('/');
-            }
-            console.log(res);
-        } catch (err) {
-            console.log(err.response.data.message);
+        if( details.password.length < 6){
             toast({
-                title: err.response.data.message,
+                title: "password must contains atleast 6 characters!",
                 position: 'top',
-                status: 'error',
+                status: 'warning',
                 isClosable: true,
             })
+        }else{
+            try {
+                let res = await axios.post(`${config.API_URL}/api/auth/register`, {...details})
+                if(res.data.success) {
+                    const { token, id, name, img } = res.data;
+                    localStorage.setItem('token', token);
+                    toast({
+                        title: res.data.message,
+                        position: 'top',
+                        status: 'success',
+                        isClosable: true,
+                    })
+                    dispatch(login(name, id, token, img))
+                    navigate('/');
+                }
+                console.log(res);
+            } catch (err) {
+                console.log(err.response.data.message);
+                toast({
+                    title: err.response.data.message,
+                    position: 'top',
+                    status: 'error',
+                    isClosable: true,
+                })
+            }
         }
     }
 
