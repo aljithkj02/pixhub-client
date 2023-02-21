@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Box, Text, Input, Image, useColorMode, Button, useDisclosure } from '@chakra-ui/react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios';
 import config from '../config'
 import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
@@ -10,12 +10,15 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import LanguageIcon from '@mui/icons-material/Language'; 
 import PlaceIcon from '@mui/icons-material/Place'; 
 import { Posts, Update, Loader } from '../components'
+import { addUserInfo } from '../redux/data/action';
 
 const Profile = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { id } = useParams();
   const { id : user_id } = useSelector(data => data.auth);
-  const { isLoading, error, data } = useQuery('user', async () => {
+  const dispatch = useDispatch();
+
+  const { isLoading, error, data } = useQuery(['user', id], async () => {
     const token = localStorage.getItem('token') || '';
       let res = await axios.get(`${config.API_URL}/api/users/find/${id}`, {
           headers: {
@@ -23,28 +26,33 @@ const Profile = () => {
           }
       });
       // console.log(res.data);
+      if(res.data.data._id == user_id){
+          const { name, website, city } = res.data.data;
+          dispatch(addUserInfo(name, city || '', website || ''));
+      }
       return res.data.data;
   })
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+
   const queryClient = useQueryClient()
 
-    const mutation = useMutation(async (user_id) => {
-        const token = localStorage.getItem('token') || '';
-        let res = await axios.get(`${config.API_URL}/api/users/follow/${user_id}`, {
-          headers: {
-            'authorization': `Bearer ${token}`
-          }
-        });
-    }, {
-        onSuccess: () => {
-            queryClient.invalidateQueries("user")
-        },
-    })
+  const mutation = useMutation(async (user_id) => {
+      const token = localStorage.getItem('token') || '';
+      let res = await axios.get(`${config.API_URL}/api/users/follow/${user_id}`, {
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+  }, {
+      onSuccess: () => {
+          queryClient.invalidateQueries("user");
+      },
+  })
 
   const handleFollow = async () => {
       mutation.mutate(id);
-  }
+  } 
 
   return (
     <Box bgColor={ colorMode === 'light' ? "#f6f3f3" : "#333"} minH="120vh">
@@ -131,7 +139,7 @@ const Profile = () => {
           </Box> */}
         </Box>
 
-        <Posts id={ id } />
+        <Posts id={ id } /> 
       </Box>
 
     </Box>

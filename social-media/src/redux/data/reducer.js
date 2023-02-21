@@ -1,6 +1,9 @@
 
 let defaultData = {
-    isLoading: false
+    isLoading: false,
+    name: '',
+    city: '',
+    website: ''
 }
 
 const dataReducer = (state = defaultData, action) => {
@@ -13,6 +16,11 @@ const dataReducer = (state = defaultData, action) => {
         return {
             ...state,
             isLoading: false
+        }
+    }else if(action.type === 'USER_INFO'){
+        return {
+            ...state,
+            ...action.payload
         }
     }
     return state;

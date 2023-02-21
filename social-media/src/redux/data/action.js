@@ -11,3 +11,14 @@ export const loadingOff = () => (dispatch, getState) => {
         type: 'LOADING_OFF'
     })
 }
+
+export const addUserInfo = (name, city, website) => (dispatch, getState) => {
+    return dispatch({
+        type: 'USER_INFO',
+        payload: {
+            name: name,
+            city: city,
+            website: website
+        }
+    })
+}

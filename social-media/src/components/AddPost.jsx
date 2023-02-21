@@ -25,6 +25,8 @@ const AddPost = () => {
             }
         });
         console.log(res);
+        setFile(null);
+        setDesc('');
         setIsLoading(false);
     }, {
         onSuccess: () => {
@@ -85,7 +87,7 @@ const AddPost = () => {
             </Box>
 
             <Box m="10px 0">
-                <Input variant="flushed" type="text" onChange={ (e) => setDesc(e.target.value )}/>
+                <Input variant="flushed" type="text" value={ desc } onChange={ (e) => setDesc(e.target.value )}/>
             </Box>
 
             <Box m="10px 0" display="flex" justifyContent="space-between" alignItems="center" mt="20px">

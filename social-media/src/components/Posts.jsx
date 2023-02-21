@@ -32,7 +32,7 @@ import { loadingOn, loadingOff } from '../redux/data/action';
 
   const Posts = ({ id }) => {
       const dispatch = useDispatch();
-      const { isLoading, error, data } = useQuery('posts', async () => {
+      const { isLoading, error, data } = useQuery(['posts', id], async () => {
           const token = localStorage.getItem('token') || '';
           let res = await axios.get(`${config.API_URL}/api/posts/${id}`, {
             headers: {

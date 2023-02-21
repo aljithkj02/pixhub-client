@@ -1,24 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Text, Input, Image, useColorMode, Button, Modal, 
   ModalOverlay, ModalContent, ModalHeader, ModalFooter,
   ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from 'react-query'
+import { useSelector } from 'react-redux'
 import axios from 'axios';
 import config from '../config'
 import { Loader } from './index' 
 
 const Update = ({ isOpen, onOpen, onClose, userData }) => {
 
-    const { name, city, website } = userData;
+    // const { name, city, website } = userData;
     const [cover, setCover] = useState(null);
     const [profile, setProfile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const { name, city, website } = useSelector(data => data.data);
     const [data, setData ] = useState({
         name: name,
         city: city,
         website: website
     })
 
+    useEffect(()=> {
+        setData({
+            name: name,
+            city: city,
+            website: website
+        })
+    }, [name]);
+    
     const queryClient = useQueryClient()
 
     const mutation = useMutation(async (newData) => {
@@ -35,7 +45,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
     }, {
         onSuccess: () => {
           queryClient.invalidateQueries('user')
-        },
+        }, 
     })
 
     const handleChange = (e) => {
@@ -137,7 +147,7 @@ const Update = ({ isOpen, onOpen, onClose, userData }) => {
                             />
                             <Text fontSize="14px">Add profile</Text>
                         </Box>
-                    </label>
+                    </label> 
                     <Text>{ profile?.name.substring(0, 20) }</Text>
                 </Box>
                         

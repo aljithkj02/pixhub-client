@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Text, Input, Image, useColorMode, Button } from '@chakra-ui/react'
 import { useMutation, useQueryClient, useQuery } from 'react-query'
+import { useSelector } from 'react-redux'
 import moment from 'moment'
 import axios from 'axios';
 import config from '../config'
@@ -44,7 +45,8 @@ const IndividualComment = ({ commentData }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     const border = (colorMode === 'light') ? "1px solid lightgray" : "1px solid #444";
     
-    const [ comment, setComment ] = useState();
+    const [ comment, setComment ] = useState('');
+    const { img } = useSelector(data => data.auth );
 
     const { isLoading, error, data } = useQuery('comments', async () => {
       const token = localStorage.getItem('token') || '';
@@ -82,7 +84,7 @@ const IndividualComment = ({ commentData }) => {
   return (
     <Box>
         <Box display="flex" alignItems="center" justifyContent="space-between" gap="20px" m="20px 0">
-            <Image src="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" 
+            <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${img}.jpg`} 
                 w="40px" h="40px" borderRadius="50%" objectFit="cover" 
             />
             <Input value={ comment } flex="5" type="text" placeholder="write a comment..." border={border} 
