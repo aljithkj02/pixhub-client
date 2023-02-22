@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Box, Text, Input, Image, useColorMode, useToast } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
@@ -12,12 +13,36 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import config from '../config'
 import { logout } from '../redux/auth/action';
 
+const IndividualSearchResult = ({ ele, searchHandler }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    searchHandler(false);
+    navigate(`/profile/${ele._id}`);
+  }
+  return (
+    <Box p="10px 20px" display="flex" alignItems="center" gap="10px" cursor="pointer"
+        _hover={{ background: '#d9dede'}} transition=".2s ease"
+        onClick={ handleClick }
+      >
+        <Image src={`https://res.cloudinary.com/${config.CLOUD_NAME}/image/upload/${ele.profile_pic}.jpg`} 
+          w="30px" h="30px" borderRadius="50%" 
+        />
+        <Text color="black" fontWeight="500" key={ele._id} >{ele.name}</Text>
+      </Box>
+  )
+}
+
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = (colorMode === 'light') ? "white" : "black";
   const border = (colorMode === 'light') ? "1px solid lightGrey" : "1px solid #444";
   const { name, img, id } = useSelector(data => data.auth);
   const [logoutBox, setLogoutBox] = useState(false);
+  const [search, setSearch] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
+  const debounceId = useRef(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,6 +62,33 @@ const Navbar = () => {
         isClosable: true,
     })
     navigate('/login');
+  }
+
+  const debouncer = (val, delay) => {
+    debounceId.current && clearTimeout(debounceId.current);
+      if(val == ''){
+          setIsSearch(false);
+      }else{
+          debounceId.current = setTimeout(() => {
+            searchQuery(val);
+          }, delay);
+      }
+  }
+
+  const searchQuery = async (query) => {
+      try {
+        const token = localStorage.getItem('token') || '';
+        let res = await axios.get(`${config.API_URL}/api/users/search?q=${query}`, {
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        });
+        console.log(res.data.data);
+        setSearchResult(res.data.data);
+        setIsSearch(true);
+      } catch (err) {
+        console.log(err.message);
+      }
   }
 
   return (
@@ -59,7 +111,18 @@ const Navbar = () => {
         <Box display="flex" alignItems="center" gap="10px" border={ border } borderRadius="5px" p="5px">
           <SearchOutlinedIcon />
           <Input display={["none", "none", "block"]} type="text" placeholder="Search..." border="none" 
-          outline="none"  size="xs"  w={["200px", "300px", "300px", "500px"]} />
+            outline="none"  size="xs"  w={["200px", "300px", "300px", "500px"]} 
+            onInput={ (e)=> debouncer(e.target.value, 1000) } value={ search } onChange={ (e)=> setSearch(e.target.value)}
+          />
+
+          
+          <Box position="absolute" top="60px" w={["200px", "300px", "300px", "540px"]} bgColor="#fff"
+            borderRadius="10px" overflow="hidden" boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          >
+              {isSearch && searchResult.map((ele) => {
+                  return <IndividualSearchResult key={ele._id} ele={ ele } searchHandler={ setIsSearch } />
+              })}
+          </Box>
         </Box>
       </Box>
 
