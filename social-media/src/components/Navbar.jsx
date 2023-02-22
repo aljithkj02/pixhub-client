@@ -13,11 +13,13 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import config from '../config'
 import { logout } from '../redux/auth/action';
 
-const IndividualSearchResult = ({ ele, searchHandler }) => {
+const IndividualSearchResult = ({ ele, searchHandler, handleSearchBar, handleSearchText }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     searchHandler(false);
+    handleSearchBar(false);
+    handleSearchText('');
     navigate(`/profile/${ele._id}`);
   }
   return (
@@ -42,6 +44,7 @@ const Navbar = () => {
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const debounceId = useRef(null);
 
   const navigate = useNavigate();
@@ -109,18 +112,25 @@ const Navbar = () => {
         
         <GridViewOutlinedIcon />
         <Box display="flex" alignItems="center" gap="10px" border={ border } borderRadius="5px" p="5px">
-          <SearchOutlinedIcon />
-          <Input display={["none", "none", "block"]} type="text" placeholder="Search..." border="none" 
-            outline="none"  size="xs"  w={["200px", "300px", "300px", "500px"]} 
+          <SearchOutlinedIcon onClick={ () => setIsSearchOpen(!isSearchOpen)} />
+          <Input type="text" placeholder="Search..." border="none" 
+            outline="none"  size="xs"  w={["300px", "300px", "300px", "500px"]} 
             onInput={ (e)=> debouncer(e.target.value, 1000) } value={ search } onChange={ (e)=> setSearch(e.target.value)}
+            position={['absolute', 'absolute', 'static']} top={[ '70px' ]} left={['20px', '20px']}
+            bgColor={[ "white" , "white" , 'transparent']} p={['20px', '20px', '10px']} 
+            color={(colorMode === 'light' ? ['black'] : ['black', 'black', 'white'])}
+            display={ isSearchOpen ? ["block", "block", "block"] : ["none", "none", "block"] }
+            borderRadius="5px"
           />
 
           
-          <Box position="absolute" top="60px" w={["200px", "300px", "300px", "540px"]} bgColor="#fff"
+          <Box position="absolute" top={[ '120px', '120px', '60px' ]} w={["300px", "300px", "300px", "540px"]} bgColor="#fff"
             borderRadius="10px" overflow="hidden" boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+            left={['20px','20px', 'auto']}
           >
               {isSearch && searchResult.map((ele) => {
-                  return <IndividualSearchResult key={ele._id} ele={ ele } searchHandler={ setIsSearch } />
+                  return <IndividualSearchResult key={ele._id} ele={ ele } searchHandler={ setIsSearch }
+                   handleSearchBar = { setIsSearchOpen } handleSearchText={ setSearch } />
               })}
           </Box>
         </Box>
