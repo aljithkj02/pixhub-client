@@ -3,7 +3,7 @@ import { Box, Container } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Navbar, LeftBar, RightBar } from '../components'
 import { Routes, Route, Outlet } from 'react-router-dom'
-import { Login, Register, Home, Profile } from '../pages'
+import { Login, Register, Home, Profile, PageNotFound } from '../pages'
 import PrivateRouter from './PrivateRouter'
 
 const queryClient = new QueryClient();
@@ -35,6 +35,7 @@ const AllRoutes = () => {
         </Route>
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="*" element={ <PageNotFound /> } />
       </Routes>
     </div>
   )
