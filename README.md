@@ -6,6 +6,7 @@
 <p> Pixhub is a social media app that allows users to create an account, update their profile, post updates, view other users' posts, follow other users, and search for users. </p>
 
 </br>
+
 ## Pixhub has the following features:
 
 <p> Account creation and login </p>
