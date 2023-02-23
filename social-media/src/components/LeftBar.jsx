@@ -70,7 +70,7 @@ const LeftBar = () => {
         <Box pt="20px" pl="10px" display="flex" flexDir="column" gap="20px">
             <Text fontSize="14px"> Others </Text>
             <IndividualBar text="Fund" img={ Fund } />
-            <IndividualBar text="TuTutorials" img={Tutorials } />
+            <IndividualBar text="Tututorials" img={Tutorials } />
             <IndividualBar text="Courses" img={ Courses } />
         </Box>
     </Box>

@@ -3,7 +3,8 @@ let defaultData = {
     isLoading: false,
     name: '',
     city: '',
-    website: ''
+    website: '',
+    posts: []
 }
 
 const dataReducer = (state = defaultData, action) => {
@@ -21,6 +22,11 @@ const dataReducer = (state = defaultData, action) => {
         return {
             ...state,
             ...action.payload
+        }
+    }else if(action.type === 'POSTS'){
+        return {
+            ...state,
+            posts: action.payload
         }
     }
     return state;

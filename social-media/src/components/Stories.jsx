@@ -1,26 +1,27 @@
 import React from 'react'
 import { Box, Text, Input, Image, useColorMode, Button } from '@chakra-ui/react'
+import { useSelector } from 'react-redux';
 
 let story = [
     {
         id: 1,
         name: 'Jithu',
-        img: "https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=600"
+        img: "https://images.pexels.com/photos/3921014/pexels-photo-3921014.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
     },
     {
         id: 2,
-        name: 'Jithu',
-        img: "https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=600"
+        name: 'Sanju',
+        img: "https://images.pexels.com/photos/14173827/pexels-photo-14173827.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
     },
     {
         id: 3,
-        name: 'Jithu',
-        img: "https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=600"
+        name: 'Gopi',
+        img: "https://images.pexels.com/photos/6207875/pexels-photo-6207875.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
     },
-    {
+    { 
         id: 4,
-        name: 'Jithu',
-        img: "https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=600"
+        name: 'Sajin',
+        img: "https://images.pexels.com/photos/14249237/pexels-photo-14249237.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
     }
 ]
 
@@ -52,9 +53,10 @@ const IndividualStory = ({ img, name, user }) => {
 }
 
 const Stories = () => {
+    const { name } = useSelector(data => data.auth);
   return (
     <Box display="flex" gap="10px" height={["50px", "120px", "120px", "200px"]} mb="30px" >
-        <IndividualStory user={true} img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" name="Jithu" />
+        <IndividualStory user={true} img="https://images.pexels.com/photos/5157169/pexels-photo-5157169.jpeg?auto=compress&cs=tinysrgb&w=600" name={name} />
       {
         story.map((story, i) => {
             return <IndividualStory key={i} img={ story.img } name={ story.name } />

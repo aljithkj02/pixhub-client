@@ -100,7 +100,7 @@ const Navbar = () => {
     >
       <Box display="flex" alignItems="center" gap="30px">
         <Link to="/" style={{ fontWeight: 'bold', fontSize: '20px', color: (colorMode === 'light') ?'darkblue' : 'white' }}>
-            Lama Social
+            Pixhub
         </Link>
 
         <HomeOutlinedIcon onClick={ ()=> navigate('/')}/>

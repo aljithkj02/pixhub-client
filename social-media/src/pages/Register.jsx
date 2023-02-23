@@ -1,6 +1,6 @@
 import React, { useState } from 'react' 
 import { Box, Text, Heading, Container, Card, CardHeader, CardBody, CardFooter, 
-        Button, Input, useToast } from '@chakra-ui/react'
+        Button, Input, useToast, InputGroup, InputRightElement } from '@chakra-ui/react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -13,9 +13,14 @@ const Register = () => {
         email: '',
         password: ''
     })
+    
+    const [show, setShow] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const toast = useToast()
+    const toast = useToast();
+    
+    const handleClick = () => setShow(!show);
 
     const storeDetails = (e) => {
         setDetails({
@@ -77,9 +82,23 @@ const Register = () => {
                                 <Input name="email" mt="6" type="email" variant='flushed' placeholder="Email" 
                                   onChange={ storeDetails } required={true}
                                 /> 
-                                <Input name="password" mt="6" type="password" variant='flushed' placeholder="Password" 
-                                  onChange={ storeDetails } required={true}
-                                /> 
+
+                                <InputGroup size='md'  mt="6">
+                                    <Input
+                                        pr='4.5rem'
+                                        type={show ? 'text' : 'password'}
+                                        placeholder="Password" 
+                                        variant='flushed'
+                                        name="password"
+                                        onChange={ storeDetails } required={true}
+                                    />
+                                    <InputRightElement width='4.5rem'>
+                                        <Button h='1.75rem' size='sm' bgColor="transparent" onClick={handleClick}>
+                                        {show ? 'Hide' : 'Show'}
+                                        </Button>
+                                    </InputRightElement>
+                                </InputGroup>
+
                                 <Button type="submit" mt="6"
                                     w="50%" bgColor="#938eef" color="white" fontWeight="bold" borderRadius="0" 
                                     _hover={{ bg: '#938ee1' }}
@@ -101,13 +120,13 @@ const Register = () => {
                     bgSize="cover" p="20px" color="white"
                      justifyContent="center" alignItems="center" display={{ base: "none", sm: "none", md: "flex"}}
                 >
-                    <CardHeader>
-                        <Heading fontSize="80px" lineHeight="70px">Lama Social</Heading>
+                    <CardHeader zIndex="2">
+                        <Heading fontSize="80px" lineHeight="70px">Pixhub</Heading>
                     </CardHeader>
-                    <CardBody >
+                    <CardBody zIndex="2">
                         <Text fontWeight="400">
-                            View a summary of all your customers over the last month.
-                            View a summary of all your customers over the last month
+                        Join Pixhub to share and discover visual content with like-minded individuals,
+                         and build a community around your passions.
                         </Text>
                         <Text mt="5" fontSize="14px" fontWeight="400"> Do you have an account?</Text>
                         <Button colorScheme='gray' variant='solid' mt="5" color="rebeccapurple" fontWeight="bold"
@@ -115,7 +134,12 @@ const Register = () => {
                             onClick={ ()=> navigate('/login') } 
                         >Login</Button>
                     </CardBody>
+
+                    <Box bgGradient="linear(to-b,rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5))"
+                            w="full" h="full" position="absolute" >
+                    </Box>
                 </Card>
+
             </Box>
         </Box>
   )

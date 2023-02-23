@@ -22,3 +22,10 @@ export const addUserInfo = (name, city, website) => (dispatch, getState) => {
         }
     })
 }
+
+export const storePosts = (posts) => (dispatch, getState) => {
+    return dispatch({
+        type: 'POSTS',
+        payload: posts
+    })
+}
